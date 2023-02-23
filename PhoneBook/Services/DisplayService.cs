@@ -1,4 +1,5 @@
 ﻿using ConsoleTableExt;
+using PhoneBook.Model.DTO;
 
 namespace PhoneBook.Services;
 
@@ -7,7 +8,8 @@ public class DisplayService
     private void DisplayOptions<T>(T tableData, string tableName) where T : List<List<object>> => ConsoleTableBuilder.From(tableData)
         .WithTitle(tableName, ConsoleColor.Yellow, ConsoleColor.Black)
         .ExportAndWriteLine();
-    
+
+    private void SingleEntity<T>(List<T> tableData)  where T : class => ConsoleTableBuilder.From(tableData).ExportAndWriteLine();
     public void DisplayStartMenu()
     {
         var options = new List<List<object>>
@@ -22,8 +24,5 @@ public class DisplayService
         DisplayOptions(options, "PhoneBook Options");
     }
 
-    public void CurrentContact()
-    {
-        
-    }
+    public void CurrentContact(ContactDto contact) => SingleEntity(new List<ContactDto>() {contact});
 }
