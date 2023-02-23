@@ -1,4 +1,4 @@
-﻿namespace PhoneBook.Model;
+﻿namespace PhoneBook.Model.DBO;
 
 public class Contact
 {

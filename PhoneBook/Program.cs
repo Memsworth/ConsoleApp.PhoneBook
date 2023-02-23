@@ -1,3 +1,6 @@
 ﻿using PhoneBook.BuilderContext;
+using PhoneBook.Services;
 
-var db = new PhoneBookContext();
+var display = new DisplayService();
+
+display.DisplayStartMenu();

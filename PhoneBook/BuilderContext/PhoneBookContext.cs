@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using PhoneBook.Model;
+using PhoneBook.Model.DBO;
 
 namespace PhoneBook.BuilderContext;
 
 public class PhoneBookContext : DbContext
 {
     public DbSet<Contact> Contacts { get; set; }
-    public PhoneBookContext()
-    { }
 
     // The following configures EF to create a Sqlite database file in the
     // special "local" folder for your platform.
