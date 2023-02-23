@@ -1,10 +1,19 @@
-﻿namespace PhoneBook.Controller;
+﻿using PhoneBook.BuilderContext;
+using PhoneBook.Model.DBO;
+
+namespace PhoneBook.Controller;
 
 public class DbController : IDbController
 {
+    private PhoneBookContext Db { get; }
+
+    public DbController(PhoneBookContext db) => Db = db;
+    
     public async Task Insert()
     {
-        throw new NotImplementedException();
+        await Db.AddAsync(new Contact { Name = "Ahmet", PhoneNumber = "+912823213" });
+        await Db.SaveChangesAsync();
+
     }
 
     public async Task Delete()
