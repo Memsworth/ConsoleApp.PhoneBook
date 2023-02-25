@@ -1,4 +1,6 @@
-﻿namespace PhoneBook.Services;
+﻿using PhoneBook.Model.DBO;
+
+namespace PhoneBook.Services;
 
 public class UserInputService
 {
@@ -13,6 +15,13 @@ public class UserInputService
     
     public string? GetInput(string message, Func<string, string> func) => func(message);
 
+    public void EditContactInfo(Contact contact)
+    {
+        contact.Name = GetInput("Enter a name", GetName);
+        contact.PhoneNumber = GetInput("Enter a phone number", GetPhone);
+        contact.EmailAddress = GetInput("Enter an email", GetEmail);
+    } 
+    
     public int GetId() => Helper.GetValidNumberInRange(1, int.MaxValue, "enter a valid id");
     public string GetPhone(string message)
     {

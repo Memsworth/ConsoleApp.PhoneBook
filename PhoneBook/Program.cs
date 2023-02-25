@@ -14,28 +14,32 @@ var appEnd = false;
 while (appEnd != true)
 {
     display.DisplayStartMenu();
-    int choice = Helper.GetValidNumberInRange(1, 4, "Enter a valid input");
+    int choice = Helper.GetValidNumberInRange(1, 5, "Enter a valid input");
 
     switch (choice)
     {
         case 1:
             var contact = new Contact();
-            UpdateContact(contact);
+            userInput.EditContactInfo(contact);
             await dbController.Insert(contact);
-            Console.WriteLine("item is inserted");
             break;
         case 2:
+            var deleteList = (await dbController.GetAll()).ToList();
+            display.DisplayContacts(deleteList);
             var deleteItem = await dbController.Get(userInput.GetId());
             await dbController.Delete(deleteItem);
             break;
         case 3:
+            var updateList = (await dbController.GetAll()).ToList();
+            display.DisplayContacts(updateList);
             var updateItemId = await dbController.Get(userInput.GetId());
-            UpdateContact(updateItemId);
+            userInput.EditContactInfo(updateItemId);
             await dbController.Update(updateItemId);
             break;
         case 4:
             var itemList = (await dbController.GetAll()).Select(x => new ContactDto(x)).ToList();
             display.DisplayContacts(itemList);
+            Console.ReadKey();
             break;
         case 5:
             appEnd = true;
@@ -46,9 +50,4 @@ while (appEnd != true)
     }
 }
 
-void UpdateContact(Contact contact)
-{
-    contact.Name = userInput.GetInput("Enter a name", userInput.GetName);
-    contact.PhoneNumber = userInput.GetInput("Enter a phone number", userInput.GetPhone);
-    contact.EmailAddress = userInput.GetInput("Enter an email", userInput.GetEmail);
-}
+

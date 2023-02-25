@@ -14,7 +14,6 @@ public class ContactStore : IContactStore
     {
         await Db.AddAsync(contact);
         await Db.SaveChangesAsync();
-
     }
 
     public async Task Delete(Contact contact)

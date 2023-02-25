@@ -9,8 +9,6 @@ public class DisplayService
         .WithTitle(tableName, ConsoleColor.Yellow, ConsoleColor.Black)
         .ExportAndWriteLine();
 
-    private void SingleEntity<T>(List<T> tableData)  where T : class => ConsoleTableBuilder.From(tableData).ExportAndWriteLine();
-
     public void DisplayContacts<T>(List<T> tableData) where T : class
     {
         Console.Clear();
@@ -26,11 +24,10 @@ public class DisplayService
             new() {2, "Delete a contact"},
             new() {3, "Update a contact"},
             new() {4, "List contacts"},
-            new() {5, "Get specific contact"}
+            new() {5, "Quit the app"}
         };
-        
+        Console.Clear();
         DisplayOptions(options, "PhoneBook Options");
     }
 
-    public void CurrentContact(ContactDto contact) => SingleEntity(new List<ContactDto>() {contact});
 }
