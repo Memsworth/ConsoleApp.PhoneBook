@@ -22,10 +22,7 @@ public class ContactStore : IContactStore
         await Db.SaveChangesAsync();
     }
 
-    public Task<Contact?> Get(int id)
-    {
-        return Db.Set<Contact>().FirstOrDefaultAsync(x => x.ContactId == id);
-    }
+    public Task<Contact?> Get(int id) => Db.Set<Contact>().FirstOrDefaultAsync(x => x.ContactId == id);
 
     public async Task Update(Contact contact)
     {

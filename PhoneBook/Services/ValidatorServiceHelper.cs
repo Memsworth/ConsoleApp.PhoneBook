@@ -11,14 +11,13 @@ public class ValidatorServiceHelper
     public bool ValidateEmail(string input)
     {
         var valid = MailAddress.TryCreate(input, out MailAddress? mailAddress);
-        return valid;
+        return valid || mailAddress == null;
     }
 
     public bool ValidatePhone(string input)
     {
         var matcher = PhoneRegex.Match(input);
-        if (matcher.Success) return true;
-        return false;
+        return matcher.Success;
     }
     public bool ValidateName(string input) => !string.IsNullOrWhiteSpace(input);
 }
