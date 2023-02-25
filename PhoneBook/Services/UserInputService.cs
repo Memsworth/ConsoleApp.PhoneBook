@@ -2,24 +2,51 @@
 
 public class UserInputService
 {
-    public string GetPhone()
-    {
-        throw new NotImplementedException();
-    }
+    private ValidatorService ValidatorService { get; }
+    private ValidatorServiceHelper ServiceHelper { get; }
 
-    public string GetName()
+    public UserInputService()
     {
-        
-        throw new NotImplementedException();
+        ValidatorService = new ValidatorService();
+        ServiceHelper = new ValidatorServiceHelper();
     }
+    
+    public string? GetInput(string message, Func<string, string> func) => func(message);
 
-    private string GetValidString(string promt)
+    public int GetId() => Helper.GetValidNumberInRange(1, int.MaxValue, "enter a valid id");
+    public string GetPhone(string message)
     {
-        string item;
+        string input;
         do
         {
-            item = Console.ReadLine()!;
-        } while (!string.IsNullOrEmpty(item));
-        throw new NotImplementedException();
+            Console.WriteLine(message);
+            input = Console.ReadLine();
+        } while (!ValidatorService.Validate(input, ServiceHelper.ValidatePhone));
+
+        return input;
+    }
+
+    public string? GetEmail(string message)
+    {
+        string input;
+        Console.WriteLine(message);
+        input = Console.ReadLine();
+        if (ValidatorService.Validate(input, ServiceHelper.ValidateEmail))
+        {
+            if (string.IsNullOrWhiteSpace(input)) return null;
+            return input;
+        }
+        return null;
+    }
+    public string GetName(string message)
+    {
+        string input;
+        do
+        {
+            Console.WriteLine(message);
+            input = Console.ReadLine()!;
+        } while (!ValidatorService.Validate(input, ServiceHelper.ValidateName));
+
+        return input;
     }
 }

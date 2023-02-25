@@ -10,13 +10,21 @@ public class DisplayService
         .ExportAndWriteLine();
 
     private void SingleEntity<T>(List<T> tableData)  where T : class => ConsoleTableBuilder.From(tableData).ExportAndWriteLine();
+
+    public void DisplayContacts<T>(List<T> tableData) where T : class
+    {
+        Console.Clear();
+        ConsoleTableBuilder.From(tableData)
+            .WithTitle("Contacts", ConsoleColor.Yellow, ConsoleColor.Black).ExportAndWriteLine();
+    }
+
     public void DisplayStartMenu()
     {
         var options = new List<List<object>>
         {
             new() {1, "Add a contact"},
-            new() {2, "Update a contact"},
-            new() {3, "Delete a contact"},
+            new() {2, "Delete a contact"},
+            new() {3, "Update a contact"},
             new() {4, "List contacts"},
             new() {5, "Get specific contact"}
         };
