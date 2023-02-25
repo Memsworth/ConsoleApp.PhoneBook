@@ -23,7 +23,8 @@ public class UserInputService
     } 
     
     public int GetId() => Helper.GetValidNumberInRange(1, int.MaxValue, "enter a valid id");
-    public string GetPhone(string message)
+
+    private string GetPhone(string message)
     {
         string input;
         do
@@ -35,7 +36,7 @@ public class UserInputService
         return input;
     }
 
-    public string? GetEmail(string message)
+    private string? GetEmail(string message)
     {
         string input;
         Console.WriteLine(message);
@@ -47,7 +48,8 @@ public class UserInputService
         }
         return null;
     }
-    public string GetName(string message)
+
+    private string GetName(string message)
     {
         string input;
         do
