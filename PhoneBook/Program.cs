@@ -46,7 +46,7 @@ internal class Program
     private static async Task PerformCrud(DisplayService display, ContactStore dbController, UserInputService userInput)
     {
         display.PrintTable(DisplayServiceExtension.GetCrudMenu(), "CRUD Menu");
-        int choice = Helper.GetValidNumberInRange(1, 3, "");
+        int choice = Helper.GetValidNumberInRange(1, 3, "Enter a valid input");
         Contact? item;
         switch (choice)
         {
