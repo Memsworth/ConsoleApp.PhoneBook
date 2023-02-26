@@ -1,6 +1,4 @@
-﻿using PhoneBook.BuilderContext;
-using PhoneBook.Controller;
-using PhoneBook.Model.DBO;
+﻿using PhoneBook.Model.DBO;
 
 namespace PhoneBook.Services;
 
@@ -17,8 +15,8 @@ public class UserInputService
 
     public void EditContactInfo(Contact contact)
     {
-        contact.Name = GetInput("Enter a name", GetName);
-        contact.PhoneNumber = GetInput("Enter a phone number", GetPhone);
+        contact.Name = GetInput("Enter a name", GetName)!;
+        contact.PhoneNumber = GetInput("Enter a phone number", GetPhone)!;
         contact.EmailAddress = GetInput("Enter an email", GetEmail);
     } 
     

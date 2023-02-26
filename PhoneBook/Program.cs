@@ -6,7 +6,7 @@ using PhoneBook.Services;
 
 namespace PhoneBook;
 
-internal static class Program
+internal class Program
 {
     public static async Task Main(string[] args)
     {
@@ -18,41 +18,20 @@ internal static class Program
 
         while (!appEnd)
         {
-            display.DisplayStartMenu();
-            int choice = Helper.GetValidNumberInRange(1, 5, "Enter a valid input");
+            display.PrintTable(DisplayServiceExtension.GetMainMenu(), "Main Menu");
+            int choice = Helper.GetValidNumberInRange(1, 3, "Enter a valid input");
 
-            Contact? item;
             switch (choice)
             {
                 case 1:
-                    var contact = new Contact();
-                    userInput.EditContactInfo(contact);
-                    await dbController.Insert(contact);
+                    await PerformCrud(display, dbController, userInput);
                     break;
-        
                 case 2:
-                    display.DisplayContacts((await dbController.GetAll()).ToList());
-                    item = await dbController.Get(userInput.GetId());
-                    if (item != null) await dbController.Delete(item);
-                    break;
-        
-                case 3:
-                    display.DisplayContacts((await dbController.GetAll()).ToList());
-                    item = await dbController.Get(userInput.GetId());
-                    if (item != null)
-                    {
-                        userInput.EditContactInfo(item);
-                        await dbController.Update(item);
-                    }
-                    break;
-
-                case 4:
                     var itemList = (await dbController.GetAll()).Select(x => new ContactDto(x)).ToList();
-                    display.DisplayContacts(itemList);
+                    display.PrintTable(itemList, "Contacts");
                     Console.ReadKey();
                     break;
-        
-                case 5:
+                case 3:
                     appEnd = true;
                     break;
                 default:
@@ -63,4 +42,37 @@ internal static class Program
 
         
     }
+
+    private static async Task PerformCrud(DisplayService display, ContactStore dbController, UserInputService userInput)
+    {
+        display.PrintTable(DisplayServiceExtension.GetCrudMenu(), "CRUD Menu");
+        int choice = Helper.GetValidNumberInRange(1, 3, "");
+        Contact? item;
+        switch (choice)
+        {
+            case 1:
+                var contact = new Contact();
+                userInput.EditContactInfo(contact);
+                await dbController.Insert(contact);
+                break;
+        
+            case 2:
+                display.PrintTable((await dbController.GetAll()).ToList(), "Contacts");
+                item = await dbController.Get(userInput.GetId());
+                if (item != null) await dbController.Delete(item);
+                break;
+        
+            case 3:
+                display.PrintTable((await dbController.GetAll()).ToList(), "Contacts");
+                item = await dbController.Get(userInput.GetId());
+                if (item != null)
+                {
+                    userInput.EditContactInfo(item);
+                    await dbController.Update(item);
+                }
+                break;
+        }
+    }
+
+
 }

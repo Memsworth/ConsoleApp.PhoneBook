@@ -1,7 +1,4 @@
-﻿using System.Net.Mail;
-using System.Text.RegularExpressions;
-
-namespace PhoneBook.Services;
+﻿namespace PhoneBook.Services;
 
 public class ValidatorService
 {
