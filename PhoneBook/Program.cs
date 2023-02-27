@@ -27,11 +27,13 @@ internal class Program
                     await PerformCrud(display, dbController, userInput);
                     break;
                 case 2:
-                    var itemList = (await dbController.GetAll()).Select(x => new ContactDto(x)).ToList();
+                    var itemList = (await dbController.GetContacts(x => true)).Select(x => new ContactDto(x)).ToList();
                     display.PrintTable(itemList, "Contacts");
                     Console.ReadKey();
                     break;
                 case 3:
+                    break;
+                case 4:
                     appEnd = true;
                     break;
                 default:
@@ -39,12 +41,11 @@ internal class Program
                     break;
             }
         }
-
-        
     }
 
     private static async Task PerformCrud(DisplayService display, ContactStore dbController, UserInputService userInput)
     {
+        var contacts = await dbController.GetContacts(x => true);
         display.PrintTable(DisplayServiceExtension.GetCrudMenu(), "CRUD Menu");
         int choice = Helper.GetValidNumberInRange(1, 3, "Enter a valid input");
         Contact? item;
@@ -57,14 +58,14 @@ internal class Program
                 break;
         
             case 2:
-                display.PrintTable((await dbController.GetAll()).ToList(), "Contacts");
-                item = await dbController.Get(userInput.GetId());
+                display.PrintTable(contacts, "Contacts");
+                item = await dbController.GetContact(x => x.ContactId == userInput.GetId());
                 if (item != null) await dbController.Delete(item);
                 break;
         
             case 3:
-                display.PrintTable((await dbController.GetAll()).ToList(), "Contacts");
-                item = await dbController.Get(userInput.GetId());
+                display.PrintTable(contacts, "Contacts");
+                item = await dbController.GetContact(x => x.ContactId == userInput.GetId());
                 if (item != null)
                 {
                     userInput.EditContactInfo(item);
@@ -73,6 +74,7 @@ internal class Program
                 break;
         }
     }
+    
 
 
 }

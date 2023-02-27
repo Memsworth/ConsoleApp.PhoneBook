@@ -24,7 +24,7 @@ public class UserInputService
 
     private string? GetInput(string message, Func<string, bool> validatorFunc)
     {
-        Console.WriteLine(message);
+        Console.Write(message);
         string input;
         do
         {

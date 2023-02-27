@@ -19,7 +19,7 @@ public static class DisplayServiceExtension
     {
         var options = new List<List<object>>
         {
-            new() {1, "Perform crud operations"},
+            new() {1, "Crud operations"},
             new() {2, "List contacts"},
             new() {3, "Quit the app"}
         };
