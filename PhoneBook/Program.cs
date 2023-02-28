@@ -54,17 +54,17 @@ internal class Program
         if (contact == null) return;
 
         Console.Write("Enter your subject: ");
-        var subject = Console.ReadLine(); 
+        var subject = Console.ReadLine();
         Console.Write("Enter your message: ");
         var text = Console.ReadLine();
-
-        Console.Write("Enter your email: ");
-        var emailAdd = Console.ReadLine();
-        Console.Write("Enter your password: ");
-        var emailPass = Console.ReadLine();
         
-        emailService.SendEmail(new ContactDto(contact), subject, text, emailAdd, emailPass);
+        var emailAdd = userInput.GetInput("Enter your email: ", userInput.GetEmail);
+        var senderName = userInput.GetInput("Enter your name: ", userInput.GetName);
+        var emailPass = userInput.GetInput("Enter your password: ", userInput.GetName);
+        
+        emailService.SendEmail(new ContactDto(contact), subject, text, emailAdd, emailPass, senderName);
     }
+    
     private static async Task PerformCrud(DisplayService display, ContactStore dbController, UserInputService userInput)
     {
         var contacts = await dbController.GetContacts(x => true);

@@ -15,24 +15,32 @@ public class EmailService
         Message = new MimeMessage();
     }
 
-    public void SendEmail(ContactDto contact, string? subject, string? text, string? emailAdd, string? emailPass)
+    public void SendEmail(ContactDto contact, string? subject, string? text, string? emailAdd, string? emailPass,
+        string? senderName)
     {
-        
-        Message.From.Add(new MailboxAddress("abubakar ahmed", emailAdd));
-        Message.To.Add(new MailboxAddress($"{contact.Name}", $"{contact.Email}"));
-        Message.Subject = subject;
-        Message.Body = new TextPart("plain")
+        try
         {
-            Text = text
-        };
+            Message.From.Add(new MailboxAddress(senderName, emailAdd));
+            Message.To.Add(new MailboxAddress($"{contact.Name}", $"{contact.Email}"));
+            Message.Subject = subject;
+            Message.Body = new TextPart("plain")
+            {
+                Text = text
+            };
 
-        using var client = new SmtpClient ();
-        client.Connect ("smtp.gmail.com", 587, false);
+            using var client = new SmtpClient ();
+            client.Connect ("smtp.gmail.com", 587, false);
         
-        // Note: only needed if the SMTP server requires authentication
-        client.Authenticate (emailAdd, emailPass);
+            // Note: only needed if the SMTP server requires authentication
+            client.Authenticate (emailAdd, emailPass);
 
-        client.Send (Message);
-        client.Disconnect (true);
+            client.Send (Message);
+            client.Disconnect (true);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            Console.ReadKey();
+        }
     }
 }

@@ -22,7 +22,7 @@ public class UserInputService
     
     public int GetId() => Helper.GetValidNumberInRange(1, int.MaxValue, "enter a valid id");
 
-    private string? GetInput(string message, Func<string, bool> validatorFunc)
+    public string? GetInput(string message, Func<string, bool> validatorFunc)
     {
         Console.Write(message);
         string input;
@@ -35,6 +35,6 @@ public class UserInputService
     }
     
     private bool GetPhone(string input) => ValidatorService.Validate(input, ServiceHelper.ValidatePhone);
-    private bool GetEmail(string input) => ValidatorService.Validate(input, ServiceHelper.ValidateEmail);
-    private bool GetName(string input) => ValidatorService.Validate(input, ServiceHelper.ValidateName);
+    public bool GetEmail(string input) => ValidatorService.Validate(input, ServiceHelper.ValidateEmail);
+    public bool GetName(string input) => ValidatorService.Validate(input, ServiceHelper.ValidateName);
 }
