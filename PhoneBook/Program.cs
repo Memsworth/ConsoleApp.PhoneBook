@@ -19,7 +19,7 @@ internal class Program
         while (!appEnd)
         {
             display.PrintTable(DisplayServiceExtension.GetMainMenu(), "Main Menu");
-            int choice = Helper.GetValidNumberInRange(1, 3, "Enter a valid input");
+            int choice = Helper.GetValidNumberInRange(1, 4, "Enter a valid input");
 
             switch (choice)
             {
@@ -32,6 +32,7 @@ internal class Program
                     Console.ReadKey();
                     break;
                 case 3:
+                    await SendEmail(display, dbController, userInput);
                     break;
                 case 4:
                     appEnd = true;
@@ -43,6 +44,27 @@ internal class Program
         }
     }
 
+    private static async Task SendEmail(DisplayService display, ContactStore dbController, UserInputService userInput)
+    {
+        var emailService = new EmailService();
+        var contacts = await dbController.GetContacts(x => x.EmailAddress != null);
+        display.PrintTable(contacts, "Contacts with Emails");
+        var contact = await dbController.GetContact(x => x.ContactId == userInput.GetId() && x.EmailAddress != null);
+
+        if (contact == null) return;
+
+        Console.Write("Enter your subject: ");
+        var subject = Console.ReadLine(); 
+        Console.Write("Enter your message: ");
+        var text = Console.ReadLine();
+
+        Console.Write("Enter your email: ");
+        var emailAdd = Console.ReadLine();
+        Console.Write("Enter your password: ");
+        var emailPass = Console.ReadLine();
+        
+        emailService.SendEmail(new ContactDto(contact), subject, text, emailAdd, emailPass);
+    }
     private static async Task PerformCrud(DisplayService display, ContactStore dbController, UserInputService userInput)
     {
         var contacts = await dbController.GetContacts(x => true);

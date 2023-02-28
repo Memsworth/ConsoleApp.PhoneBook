@@ -21,7 +21,8 @@ public static class DisplayServiceExtension
         {
             new() {1, "Crud operations"},
             new() {2, "List contacts"},
-            new() {3, "Quit the app"}
+            new() {3, "Send an email"},
+            new() {4, "Quit the app"}
         };
         return options;
     }
