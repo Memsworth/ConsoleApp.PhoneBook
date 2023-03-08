@@ -8,7 +8,6 @@ namespace PhoneBook.Controller;
 public class ContactStore : IContactStore
 {
     private PhoneBookContext Db { get; }
-
     public ContactStore(PhoneBookContext db) => Db = db;
     
     public async Task Insert(Contact contact)

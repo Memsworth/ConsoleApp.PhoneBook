@@ -1,5 +1,4 @@
-﻿using System.Net.Mime;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MimeKit;
 using PhoneBook.Model.DTO;
 
@@ -9,7 +8,6 @@ public class EmailService
 {
     private MimeMessage Message { get; }
     
-
     public EmailService()
     {
         Message = new MimeMessage();
