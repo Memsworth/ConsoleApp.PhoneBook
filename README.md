@@ -32,9 +32,6 @@ This is a console application designed to act as a phonebook for your contacts. 
 - Using some sort of API to verify correct email address
 - A better search method to display contact (or an individual contact
 - Fixing A LOT of DRY
-## Source
-
-This is a part of the [TheCSharpAcademy](https://www.thecsharpacademy.com/) .NET Full Stack Dev roadmap 
 ## Feedback
 
 If you have any feedback, please reach out to me at abubakarahmed4497@outlook.com
